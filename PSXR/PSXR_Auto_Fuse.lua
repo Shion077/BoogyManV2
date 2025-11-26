@@ -19,7 +19,7 @@ local function getRemote(int)
 end
 
 local gui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
-gui.Name = "PetFuse"
+gui.Name = " Auto Fuse"
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.ResetOnSpawn = false
 
@@ -39,7 +39,7 @@ header.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 Instance.new("UICorner", header).CornerRadius = UDim.new(0, 12)
 
 local title = Instance.new("TextLabel", header)
-title.Text = "ðŸ’€Pet Fuse"
+title.Text = "⚡Auto Fuse"
 title.Font = Enum.Font.GothamBold
 title.TextSize = 10
 title.TextXAlignment = Enum.TextXAlignment.Left
