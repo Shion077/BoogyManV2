@@ -1,20 +1,11 @@
--- =========================
--- 📦 Wait until game and player are ready
--- =========================
 repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer and game.Players.LocalPlayer.Character
 
--- =========================
--- 📦 SERVICES & GLOBALS
--- =========================
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local LocalPlayer = Players.LocalPlayer
 
--- =========================
--- 🖼 GUI SETUP
--- =========================
 local gui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
-gui.Name = "PSX Spy"
+gui.Name = "Remote Spy V2"
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.ResetOnSpawn = false
 
@@ -35,7 +26,7 @@ header.BorderSizePixel = 0
 Instance.new("UICorner", header).CornerRadius = UDim.new(0, 12)
 
 local title = Instance.new("TextLabel", header)
-title.Text = "💀PSX Spy"
+title.Text = "💀Remote Spy V2"
 title.Font = Enum.Font.GothamBold
 title.TextSize = 10
 title.TextXAlignment = Enum.TextXAlignment.Left
@@ -101,9 +92,6 @@ local Status1Lbl = createLabel("Status1Lbl", "STATUS :", UDim2.new(0, 5, 0, -5),
 local StatusLbl = createLabel("StatusLbl", "Inactive", UDim2.new(0, 62, 0, -5), 52.5, 20, Color3.fromRGB(30, 30, 30), Color3.fromRGB(255, 50, 50))
 local SwitchBtn = createButton("SwitchBtn", "Turn On", UDim2.new(0, 5, 0, 20), 110, 20, Color3.fromRGB(40, 120, 40))
 
--- =========================
--- 🔘 STATUS SYSTEM
--- =========================
 local active = false
 local oldNamecall
 
@@ -122,9 +110,6 @@ local function setStatus(state)
 	end
 end
 
--- =========================
--- 🧠 SPY (RemoteFunctions + RemoteEvents)
--- =========================
 local function activateSpy()
 	local remoteFunctions = {}
 	local remoteEvents = {}
@@ -215,9 +200,6 @@ local function deactivateSpy()
 	end
 end
 
--- =========================
--- 🎛 BUTTON CONTROL
--- =========================
 SwitchBtn.MouseButton1Click:Connect(function()
 	if active then
 		deactivateSpy()
@@ -228,9 +210,6 @@ SwitchBtn.MouseButton1Click:Connect(function()
 	end
 end)
 
--- =========================
--- 🔲 FRAME CONTROL
--- =========================
 local isMinimized = false
 local originalSize = frame.Size
 minimizeBtn.MouseButton1Click:Connect(function()
