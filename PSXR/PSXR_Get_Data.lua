@@ -1,40 +1,35 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local HttpService = game:GetService("HttpService")
-local PetsFolder = ReplicatedStorage.__DIRECTORY.Pets
 
+local PetsFolder = ReplicatedStorage.__DIRECTORY.Pets
 local PetList = {}
 local keywords = {"titanic","huge","gargantuan"}
 
-local function matchesFilter(petName)
-    local lower = string.lower(petName)
-    for _, word in ipairs(keywords) do
-        if string.find(lower, word) then
-            return true
-        end
+local function matchesFilter(n)
+    n = string.lower(n)
+    for _, w in ipairs(keywords) do
+        if string.find(n, w) then return true end
     end
-    return false
 end
 
-for _, folder in ipairs(PetsFolder:GetChildren()) do
-    if folder:IsA("Folder") then
-        local petDataModule = folder:FindFirstChild("Petdata")
-        if petDataModule and petDataModule:IsA("ModuleScript") then
-            local ok, data = pcall(require, petDataModule)
-            if ok and typeof(data) == "table" then
-                local name = data.name or folder.Name
-                if matchesFilter(name) then
-                    local thumb = data.thumbnail or ""
-                    table.insert(PetList, {name, thumb})
-                end
+for _, f in ipairs(PetsFolder:GetChildren()) do
+    local mod = f:FindFirstChildWhichIsA("ModuleScript")
+    if mod then
+        local data
+        for i = 1, 20 do
+            local ok, d = pcall(require, mod)
+            if ok and typeof(d) == "table" and d.name and d.thumbnail then
+                data = d
+                break
             end
+            task.wait(0.05)
+        end
+        if data and matchesFilter(data.name) then
+            table.insert(PetList, {data.name, data.thumbnail})
         end
     end
 end
 
-local jsonOutput = HttpService:JSONEncode(PetList)
-
-if writefile then
-    writefile("pets.json", jsonOutput)
-end
-
-print("Saved Finish")
+local json = HttpService:JSONEncode(PetList)
+if writefile then writefile("pets.json", json) end
+print("Finished saving file.")
