@@ -14,7 +14,7 @@ local LocalPlayer = Players.LocalPlayer
 -- 🖼 GUI SETUP
 -- =========================
 local gui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
-gui.Name = "PSX Spy"
+gui.Name = "Remote Spy V1"
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.ResetOnSpawn = false
 
