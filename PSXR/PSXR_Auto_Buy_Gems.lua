@@ -1,0 +1,190 @@
+--// Services
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+local LocalPlayer = Players.LocalPlayer
+local HttpService = game:GetService("HttpService")
+local playerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+--// Library & Remotes
+local Library = require(ReplicatedStorage:WaitForChild("Library"))
+local diamondGui = playerGui:WaitForChild("Diamonds Animation")
+
+-- ======================================================
+-- 🎯 Remote Grabber
+-- ======================================================
+local function getRemote(int)
+    local count = 0
+    for _, obj in ipairs(ReplicatedStorage:GetChildren()) do
+        if obj:IsA("RemoteFunction") then
+            count += 1
+            if count == int then
+                return obj
+            end
+        end
+    end
+    return nil
+end
+
+-- ======================================================
+-- AUTO BUY FUNCTION
+-- ======================================================
+local function Autobuy(bundleNumber, remoteIndex)
+    local remote = getRemote(remoteIndex)
+    if remote then
+        remote:InvokeServer(bundleNumber)
+    end
+end
+
+-- ======================================================
+-- 💀 GUI Setup
+-- ======================================================
+
+local gui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
+gui.Name = "PetDelete"
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+gui.ResetOnSpawn = false
+
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 120, 0, 105)
+frame.Position = UDim2.new(0.5, -160, 0.5, -135)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 8)
+
+local header = Instance.new("Frame", frame)
+header.Name = "Header"
+header.Size = UDim2.new(1, 0, 0, 20)
+header.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Instance.new("UICorner", header).CornerRadius = UDim.new(0, 12)
+
+local title = Instance.new("TextLabel", header)
+title.Text = "⚡Auto Buy"
+title.Font = Enum.Font.GothamBold
+title.TextSize = 10
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Size = UDim2.new(1, -60, 1, 0)
+title.Position = UDim2.new(0, 10, 0, 0)
+title.BackgroundTransparency = 1
+
+local closeBtn = Instance.new("TextButton", header)
+closeBtn.Text = "X"
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 14
+closeBtn.Size = UDim2.new(0, 15, 0, 15)
+closeBtn.Position = UDim2.new(0, 100, 0, 2)
+closeBtn.BackgroundColor3 = Color3.fromRGB(180, 50, 50)
+closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(1, 0)
+
+local minimizeBtn = Instance.new("TextButton", header)
+minimizeBtn.Text = "-"
+minimizeBtn.Font = Enum.Font.GothamBold
+minimizeBtn.TextSize = 18
+minimizeBtn.Size = UDim2.new(0, 15, 0, 15)
+minimizeBtn.Position = UDim2.new(0, 82, 0, 2)
+minimizeBtn.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+minimizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(1, 0)
+
+local content = Instance.new("Frame", frame)
+content.Name = "Content"
+content.Position = UDim2.new(0, 0, 0, 30)
+content.Size = UDim2.new(1, 0, 1, -30)
+content.BackgroundTransparency = 1
+
+-- Bundle Number Input
+local TargetBox = Instance.new("TextBox", content)
+TargetBox.Size = UDim2.new(0, 100, 0, 20)
+TargetBox.Position = UDim2.new(0, 10, 0, -5)
+TargetBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+TargetBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+TargetBox.PlaceholderText = "Bundle Number"
+TargetBox.Text = "2"
+TargetBox.TextSize = 11
+TargetBox.BorderSizePixel = 0
+
+-- Remote Index Box
+local remoteBox = Instance.new("TextBox", content)
+remoteBox.Size = UDim2.new(0, 100, 0, 20)
+remoteBox.Position = UDim2.new(0, 10, 0, 20)
+remoteBox.PlaceholderText = "Remote Index"
+remoteBox.Text = "130"
+remoteBox.TextColor3 = Color3.new(1, 1, 1)
+remoteBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+Instance.new("UICorner", remoteBox).CornerRadius = UDim.new(0, 6)
+
+-- ======================================================
+-- 🆕 AUTO BUY TOGGLE BUTTON
+-- ======================================================
+
+local BuyBtn = Instance.new("TextButton", content)
+BuyBtn.Size = UDim2.new(0, 100, 0, 20)
+BuyBtn.Position = UDim2.new(0, 10, 0, 45)
+BuyBtn.Text = "Auto Buy: OFF"
+BuyBtn.TextSize = 11
+BuyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+BuyBtn.BackgroundColor3 = Color3.fromRGB(180, 50, 50)
+BuyBtn.BorderSizePixel = 0
+Instance.new("UICorner", BuyBtn).CornerRadius = UDim.new(0, 6)
+
+local autoBuyEnabled = false
+local interval = 0.03
+
+local function updateBuyButton()
+    if autoBuyEnabled then
+        BuyBtn.Text = "Auto Buy: ON"
+        BuyBtn.BackgroundColor3 = Color3.fromRGB(50, 180, 50)
+        diamondGui.Enabled = false
+    else
+        BuyBtn.Text = "Auto Buy: OFF"
+        BuyBtn.BackgroundColor3 = Color3.fromRGB(180, 50, 50)
+        diamondGui.Enabled = true
+    end
+end
+
+BuyBtn.MouseButton1Click:Connect(function()
+    autoBuyEnabled = not autoBuyEnabled
+    updateBuyButton()
+end)
+
+-- ======================================================
+-- 🔁 AUTO LOOP
+-- ======================================================
+task.spawn(function()
+    while true do
+        if autoBuyEnabled then
+            local bundle = tonumber(TargetBox.Text)
+            local remoteIndex = tonumber(remoteBox.Text)
+
+            if bundle and remoteIndex then
+                Autobuy(bundle, remoteIndex)
+            end
+        end
+        task.wait(interval)
+    end
+end)
+
+-- Minimize
+local isMinimized = false
+local originalSize = frame.Size
+minimizeBtn.MouseButton1Click:Connect(function()
+    isMinimized = not isMinimized
+    if isMinimized then
+        content.Visible = false
+        frame.Size = UDim2.new(originalSize.X.Scale, originalSize.X.Offset, 0, header.Size.Y.Offset)
+        minimizeBtn.Text = "+"
+    else
+        content.Visible = true
+        frame.Size = originalSize
+        minimizeBtn.Text = "-"
+    end
+end)
+
+-- Close
+closeBtn.MouseButton1Click:Connect(function()
+    gui:Destroy()
+end)
