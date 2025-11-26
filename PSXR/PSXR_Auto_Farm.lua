@@ -34,7 +34,7 @@ local function getRemoteEvent(int)
 end
 
 local gui = Instance.new("ScreenGui", PlayerGui)
-gui.Name = "AutoFarmUI"
+gui.Name = "Auto Farm"
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.ResetOnSpawn = false
 
@@ -54,7 +54,7 @@ header.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 Instance.new("UICorner", header).CornerRadius = UDim.new(0, 12)
 
 local title = Instance.new("TextLabel", header)
-title.Text = "⚡Auto Farm + AFK"
+title.Text = "⚡Auto Farm"
 title.Font = Enum.Font.GothamBold
 title.TextSize = 10
 title.TextXAlignment = Enum.TextXAlignment.Left
