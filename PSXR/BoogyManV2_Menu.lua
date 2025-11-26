@@ -41,8 +41,13 @@ gui.Name = "BoogyManV2 Menu"
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.ResetOnSpawn = false
 
+local baseHeight = 30
+local buttonIncrement = 25
+local totalButtons = #defaultListLink
+local frameHeight = baseHeight + (totalButtons * buttonIncrement)
+
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 120, 0, 180) --Add 25 in Hieght if you add 1 button
+frame.Size = UDim2.new(0, 120, 0, frameHeight)
 frame.Position = UDim2.new(0.5, -160, 0.5, -135)
 frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 frame.BorderSizePixel = 0
