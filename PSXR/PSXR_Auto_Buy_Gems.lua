@@ -1,4 +1,3 @@
---// Services
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
@@ -6,13 +5,9 @@ local LocalPlayer = Players.LocalPlayer
 local HttpService = game:GetService("HttpService")
 local playerGui = LocalPlayer:WaitForChild("PlayerGui")
 
---// Library & Remotes
 local Library = require(ReplicatedStorage:WaitForChild("Library"))
 local diamondGui = playerGui:WaitForChild("Diamonds Animation")
 
--- ======================================================
--- 🎯 Remote Grabber
--- ======================================================
 local function getRemote(int)
     local count = 0
     for _, obj in ipairs(ReplicatedStorage:GetChildren()) do
@@ -26,9 +21,6 @@ local function getRemote(int)
     return nil
 end
 
--- ======================================================
--- AUTO BUY FUNCTION
--- ======================================================
 local function Autobuy(bundleNumber, remoteIndex)
     local remote = getRemote(remoteIndex)
     if remote then
@@ -36,9 +28,6 @@ local function Autobuy(bundleNumber, remoteIndex)
     end
 end
 
--- ======================================================
--- 💀 GUI Setup
--- ======================================================
 
 local gui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
 gui.Name = "PetDelete"
@@ -96,7 +85,6 @@ content.Position = UDim2.new(0, 0, 0, 30)
 content.Size = UDim2.new(1, 0, 1, -30)
 content.BackgroundTransparency = 1
 
--- Bundle Number Input
 local TargetBox = Instance.new("TextBox", content)
 TargetBox.Size = UDim2.new(0, 100, 0, 20)
 TargetBox.Position = UDim2.new(0, 10, 0, -5)
@@ -107,7 +95,6 @@ TargetBox.Text = "2"
 TargetBox.TextSize = 11
 TargetBox.BorderSizePixel = 0
 
--- Remote Index Box
 local remoteBox = Instance.new("TextBox", content)
 remoteBox.Size = UDim2.new(0, 100, 0, 20)
 remoteBox.Position = UDim2.new(0, 10, 0, 20)
@@ -116,10 +103,6 @@ remoteBox.Text = "130"
 remoteBox.TextColor3 = Color3.new(1, 1, 1)
 remoteBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 Instance.new("UICorner", remoteBox).CornerRadius = UDim.new(0, 6)
-
--- ======================================================
--- 🆕 AUTO BUY TOGGLE BUTTON
--- ======================================================
 
 local BuyBtn = Instance.new("TextButton", content)
 BuyBtn.Size = UDim2.new(0, 100, 0, 20)
@@ -151,9 +134,6 @@ BuyBtn.MouseButton1Click:Connect(function()
     updateBuyButton()
 end)
 
--- ======================================================
--- 🔁 AUTO LOOP
--- ======================================================
 task.spawn(function()
     while true do
         if autoBuyEnabled then
