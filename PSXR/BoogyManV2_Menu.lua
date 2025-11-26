@@ -33,7 +33,12 @@ local defaultListLink = {
     {
         name = "Remote Spy V2",
         code = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Shion077/BoogyManV2/refs/heads/main/PSXR/PSXR_Remote_Spy_V2.lua"))()'
+    },
+    {
+        name = "Download Data",
+        code = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Shion077/BoogyManV2/refs/heads/main/PSXR/PSXR_Get_Data.lua"))()'
     }
+
 }
 
 local gui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
@@ -72,7 +77,7 @@ headerCorner.CornerRadius = UDim.new(0, 12)
 headerCorner.Parent = header
 
 local title = Instance.new("TextLabel")
-title.Text = "💀BoogyManV2 Menu"
+title.Text = "💀BoogyManV2"
 title.Font = Enum.Font.GothamBold
 title.TextSize = 10
 title.TextXAlignment = Enum.TextXAlignment.Left
