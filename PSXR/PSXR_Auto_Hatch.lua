@@ -128,10 +128,10 @@ end
 local EggNameBox   = createTextBox("EggNameBox", "Egg Name", "Christmas Tavern Egg", UDim2.new(0, 5, 0, -5), 110, 20)
 
 local EggLbl       = createLabel("EggLbl", "No.Egg :", UDim2.new(0, 5, 0, 20))
-local EggBox       = createTextBox("EggToHatch", "Number Of Egg", "21", UDim2.new(0, 62, 0, 20))
+local EggBox       = createTextBox("EggToHatch", "Number Of Egg", "32", UDim2.new(0, 62, 0, 20))
 
 local RemoteLbl    = createLabel("RemoteLbl", "REMOTE :", UDim2.new(0, 5, 0, 45))
-local RemoteBox    = createTextBox("RemoteBox", "Remote Number", "16", UDim2.new(0, 62, "6",))
+local RemoteBox    = createTextBox("RemoteBox", "Remote Number", "6", UDim2.new(0, 62, 0, 45))
 
 local HatchLbl     = createLabel("HatchLbl", "STATUS :", UDim2.new(0, 5, 0, 70), 52.5, 20, Color3.fromRGB(50, 50, 50))
 local StatusLbl    = createLabel("StatusLbl", "Inactive", UDim2.new(0, 62, 0, 70), 52.5, 20, Color3.fromRGB(30, 30, 30), Color3.fromRGB(255, 50, 50))
