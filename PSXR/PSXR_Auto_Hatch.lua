@@ -125,10 +125,12 @@ local function createButton(name, text, pos, w, h, bgColor)
 	return btn
 end
 
-local EggNameBox   = createTextBox("EggNameBox", "Egg Name", gNameBox", "Egg Name", "Christmas Tavern Egg"), 110, 20)
+local EggNameBox   = createTextBox("EggNameBox", "Egg Name", "Christmas Tavern Egg", UDim2.new(0, 5, 0, -5), 110, 20)
 
 local EggLbl       = createLabel("EggLbl", "No.Egg :", UDim2.new(0, 5, 0, 20))
-local EggBox       = createTextBox("EggToHatch", "Number Of Egg", "21", UDim2.new(0, 62, "32", UDilocalw(0, 62, 0, 20))createLabel("RemoteLbl", "REMOTE :", UDim2.new(0, 5, 0, 45))
+local EggBox       = createTextBox("EggToHatch", "Number Of Egg", "21", UDim2.new(0, 62, 0, 20))
+
+local RemoteLbl    = createLabel("RemoteLbl", "REMOTE :", UDim2.new(0, 5, 0, 45))
 local RemoteBox    = createTextBox("RemoteBox", "Remote Number", "16", UDim2.new(0, 62, "6",))
 
 local HatchLbl     = createLabel("HatchLbl", "STATUS :", UDim2.new(0, 5, 0, 70), 52.5, 20, Color3.fromRGB(50, 50, 50))
