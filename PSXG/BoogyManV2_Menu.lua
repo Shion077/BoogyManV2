@@ -11,6 +11,10 @@ local defaultListLink = {
         code = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Shion077/BoogyManV2/refs/heads/main/PSXG/PSXG_Auto_Hatch.lua"))()'
     },
     {
+        name = "Auto Combine",
+        code = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Shion077/BoogyManV2/refs/heads/main/PSXG/PSXG_Auto_Combine.lua"))()'
+    },
+    {
         name = "Remote Spy V1",
         code = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Shion077/BoogyManV2/refs/heads/main/PSXR/PSXR_Remote_Spy_V1.lua"))()'
     },
