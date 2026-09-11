@@ -18,7 +18,7 @@ task.spawn(function()
     local openEggsScript = LocalPlayer:WaitForChild("PlayerScripts")
         :WaitForChild("Scripts")
         :WaitForChild("Game")
-        :WaitForChild("EggOpenHook")
+        :WaitForChild("Open Eggs")
 
     if openEggsScript then
         openEggsScript:Destroy()
@@ -29,12 +29,12 @@ task.spawn(function()
 end)
 
 local gui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
-gui.Name = "Hatch"
+gui.Name = "Auto Hatch"
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.ResetOnSpawn = false
 
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 120, 0, 155)
+frame.Size = UDim2.new(0, 120, 0, 150)
 frame.Position = UDim2.new(0.5, -160, 0.5, -135)
 frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 frame.BorderSizePixel = 0
@@ -154,7 +154,6 @@ end
 
 local function HatchEgg()
     local Eggname = EggNameBox.Text
-    local NoOfEgg = tonumber(EggBox.Text)
     local OpenEgg = getRemoteByBox()
 
     if not OpenEgg then
@@ -163,7 +162,7 @@ local function HatchEgg()
     end
 
     local success, result = pcall(function()
-        return OpenEgg:InvokeServer(Eggname, true, false, false)
+        return OpenEgg:InvokeServer(Eggname, false, false, true)
     end)
 
     if not success then
