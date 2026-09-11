@@ -18,7 +18,7 @@ task.spawn(function()
     local openEggsScript = LocalPlayer:WaitForChild("PlayerScripts")
         :WaitForChild("Scripts")
         :WaitForChild("Game")
-        :WaitForChild("Open Eggs")
+        :WaitForChild("EggOpenHook")
 
     if openEggsScript then
         openEggsScript:Destroy()
