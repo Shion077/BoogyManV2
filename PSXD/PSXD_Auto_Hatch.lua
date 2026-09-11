@@ -163,7 +163,7 @@ local function HatchEgg()
     end
 
     local success, result = pcall(function()
-        return OpenEgg:InvokeServer(Eggname, false, true)
+        return OpenEgg:InvokeServer(Eggname, true, false, false)
     end)
 
     if not success then
